@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🎯 بطولة جدول الضرب</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;600;700;800&family=Tajawal:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --teal: #0ea5a4; --teal-deep: #0f766e;
+        --sun: #fbbf24; --sun-deep: #f59e0b;
+        --coral: #fb7185; --coral-deep: #e11d48;
+        --green: #22c55e; --green-deep: #15803d;
+        --ink: #143642; --muted: #5b7480;
+        --card: #ffffff; --soft: #eef6f6; --line: #d8eceb;
+        --shadow: 0 14px 40px rgba(15, 54, 66, 0.18);
+      }
+      * { box-sizing: border-box; }
+      body {
+        font-family: "Tajawal", system-ui, sans-serif; color: var(--ink); margin: 0; min-height: 100vh;
+        background:
+          radial-gradient(circle at 12% 18%, rgba(251, 191, 36, 0.22), transparent 38%),
+          radial-gradient(circle at 88% 12%, rgba(251, 113, 133, 0.20), transparent 40%),
+          radial-gradient(circle at 50% 95%, rgba(34, 197, 94, 0.18), transparent 45%),
+          linear-gradient(160deg, #0f766e, #134e4a 55%, #0b3a3a);
+        background-attachment: fixed;
+      }
+      body::before {
+        content: ""; position: fixed; inset: 0;
+        background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1.5px, transparent 1.6px);
+        background-size: 26px 26px; pointer-events: none; z-index: 0;
+      }
+      .container {
+        position: relative; z-index: 1; max-width: 980px; margin: 26px auto;
+        background: var(--card); padding: 0 0 30px; border-radius: 26px;
+        box-shadow: var(--shadow); overflow: hidden;
+      }
+      header {
+        background: linear-gradient(120deg, var(--teal), var(--teal-deep));
+        color: #fff; padding: 30px 28px 26px; text-align: center; position: relative; overflow: hidden;
+      }
+      header::after {
+        content: "✦ ✶ ✦ ✶ ✦ ✶ ✦ ✶ ✦ ✶ ✦ ✶"; position: absolute; bottom: 8px; left: 0; right: 0;
+        font-size: 12px; letter-spacing: 8px; color: rgba(255, 255, 255, 0.25); white-space: nowrap;
+      }
+      header h1 {
+        font-family: "Baloo Bhaijaan 2", sans-serif; font-weight: 800;
+        font-size: clamp(26px, 5vw, 40px); margin: 0; text-shadow: 0 3px 0 rgba(0, 0, 0, 0.12);
+      }
+      header p { margin: 8px 0 0; opacity: 0.92; font-size: 16px; }
+      .badge {
+        display: inline-block; background: var(--sun); color: #6b3f00;
+        font-family: "Baloo Bhaijaan 2", sans-serif; font-weight: 700; padding: 4px 14px;
+        border-radius: 999px; font-size: 14px; margin-bottom: 12px; box-shadow: 0 4px 0 var(--sun-deep);
+      }
+      .body-pad { padding: 24px 28px 0; }
+
+      .top-row {
+        display: flex; flex-wrap: wrap; gap: 16px; align-items: center;
+        justify-content: space-between; margin-bottom: 16px;
+      }
+      .name-field { flex: 1 1 280px; }
+      .name-field label { display: block; font-weight: 700; font-size: 14px; color: var(--muted); margin-bottom: 6px; }
+      #studentName {
+        width: 100%; padding: 13px 16px; border-radius: 14px; border: 2px solid var(--line);
+        font-family: "Tajawal", sans-serif; font-size: 17px; color: var(--ink); transition: 0.2s; background: var(--soft);
+      }
+      #studentName:focus { outline: none; border-color: var(--teal); background: #fff; box-shadow: 0 0 0 4px rgba(14, 165, 164, 0.15); }
+
+      .progress-wrap { flex: 1 1 240px; }
+      .progress-top { display: flex; justify-content: space-between; font-weight: 700; font-size: 14px; color: var(--muted); margin-bottom: 6px; }
+      .progress-bar { height: 14px; background: var(--soft); border-radius: 999px; overflow: hidden; border: 1px solid var(--line); }
+      .progress-fill { height: 100%; width: 0%; border-radius: 999px; background: linear-gradient(90deg, var(--sun), var(--green)); transition: width 0.35s ease; }
+
+      /* لوحة الإعدادات */
+      .settings { display: flex; flex-direction: column; gap: 12px; background: var(--soft); border: 2px solid var(--line); border-radius: 16px; padding: 14px 16px; margin-bottom: 20px; }
+      .setting { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+      .setting-label { font-weight: 700; color: var(--muted); font-size: 15px; }
+      .segmented { display: inline-flex; background: #fff; border: 2px solid var(--line); border-radius: 999px; padding: 4px; gap: 4px; margin-inline-start: auto; }
+      .seg {
+        font-family: "Baloo Bhaijaan 2", sans-serif; font-weight: 700; font-size: 14px; padding: 8px 16px;
+        border: none; border-radius: 999px; background: transparent; color: var(--teal-deep); cursor: pointer; transition: 0.18s;
+      }
+      .seg:hover { background: var(--soft); }
+      .seg.active { background: var(--teal); color: #fff; box-shadow: 0 3px 0 var(--teal-deep); }
+      .toggle { display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: 700; color: var(--ink); font-size: 14px; padding-top: 4px; border-top: 1px dashed var(--line); }
+      .toggle input { width: 20px; height: 20px; accent-color: var(--teal); cursor: pointer; }
+      .note { font-size: 14px; color: #92500a; background: #fffbeb; border: 2px dashed var(--sun-deep); border-radius: 12px; padding: 10px 14px; margin: 2px 0 0; line-height: 1.7; }
+      .note strong { color: #b45309; }
+      .hint { font-size: 13px; color: var(--muted); margin: 0; line-height: 1.6; }
+
+      #questions { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
+      .question {
+        background: var(--soft); padding: 14px 12px; border-radius: 16px; border: 2px solid transparent;
+        text-align: center; transition: transform 0.15s, box-shadow 0.15s, background 0.2s, border-color 0.2s;
+        position: relative; animation: rise 0.3s ease both;
+      }
+      .question:hover { transform: translateY(-3px); box-shadow: 0 8px 18px rgba(15, 54, 66, 0.12); }
+      .q-index { position: absolute; top: 8px; inset-inline-start: 10px; font-size: 12px; font-weight: 700; color: var(--muted); background: #fff; border-radius: 999px; width: 22px; height: 22px; line-height: 22px; }
+      .q-expr { font-family: "Baloo Bhaijaan 2", sans-serif; font-weight: 700; font-size: 24px; color: var(--teal-deep); margin: 6px 0 10px; letter-spacing: 1px; }
+      .q-expr .times { color: var(--sun-deep); }
+      .question input {
+        width: 78px; padding: 9px 6px; font-family: "Baloo Bhaijaan 2", sans-serif; font-size: 20px;
+        text-align: center; border-radius: 12px; border: 2px solid var(--line); background: #fff; color: var(--ink); transition: 0.18s;
+      }
+      .question input:focus { outline: none; border-color: var(--teal); box-shadow: 0 0 0 4px rgba(14, 165, 164, 0.15); }
+      .question.correct { background: #e8fff0; border-color: var(--green); }
+      .question.correct input { border-color: var(--green); color: var(--green-deep); }
+      .question.wrong { background: #fff0f3; border-color: var(--coral); }
+      .question.wrong input { border-color: var(--coral); color: var(--coral-deep); }
+      .feedback { display: block; margin-top: 8px; font-size: 13px; font-weight: 700; min-height: 16px; }
+      .question.correct .feedback { color: var(--green-deep); }
+      .question.wrong .feedback { color: var(--coral-deep); }
+
+      .actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 26px; }
+      .actions button { font-family: "Baloo Bhaijaan 2", sans-serif; font-weight: 700; font-size: 17px; padding: 13px 26px; border: none; border-radius: 14px; cursor: pointer; transition: transform 0.12s, filter 0.2s; }
+      .actions button:active { transform: translateY(2px); }
+      .btn-primary { background: var(--teal); color: #fff; box-shadow: 0 5px 0 var(--teal-deep); }
+      .btn-primary:hover { filter: brightness(1.05); }
+      .btn-ghost { background: #fff; color: var(--teal-deep); border: 2px solid var(--line); }
+      .btn-ghost:hover { background: var(--soft); }
+
+      #result { margin-top: 26px; }
+      .score-card { display: flex; flex-wrap: wrap; align-items: center; gap: 22px; justify-content: center; background: var(--soft); border-radius: 20px; padding: 22px; border: 2px solid var(--line); animation: pop 0.4s ease; }
+      .score-ring { --p: 0; width: 120px; height: 120px; border-radius: 50%; display: grid; place-items: center; background: radial-gradient(closest-side, #fff 72%, transparent 73%), conic-gradient(var(--green) calc(var(--p) * 1%), var(--line) 0); flex: 0 0 auto; }
+      .score-ring b { font-family: "Baloo Bhaijaan 2", sans-serif; font-size: 30px; color: var(--teal-deep); }
+      .score-text { flex: 1 1 220px; min-width: 200px; }
+      .score-text h3 { font-family: "Baloo Bhaijaan 2", sans-serif; margin: 0 0 6px; font-size: 22px; }
+      .score-text p { margin: 4px 0; color: var(--muted); font-size: 16px; }
+
+      .certificate { margin-top: 26px; background: radial-gradient(circle at 20% 0%, rgba(255,255,255,0.6), transparent 40%), linear-gradient(135deg, #fffdf3, #fff3c4); border: 5px double var(--sun-deep); border-radius: 20px; padding: 30px 26px; text-align: center; animation: pop 0.5s ease; }
+      .certificate .ribbon { font-size: 46px; }
+      .certificate h2 { font-family: "Baloo Bhaijaan 2", sans-serif; color: #b45309; margin: 6px 0; font-size: 28px; }
+      .certificate .cname { font-family: "Baloo Bhaijaan 2", sans-serif; font-size: 26px; color: var(--teal-deep); margin: 10px 0; padding-bottom: 6px; border-bottom: 3px dashed var(--sun-deep); display: inline-block; }
+      .certificate p { margin: 6px 0; color: #7c5a13; font-size: 17px; }
+      .certificate .grade { font-family: "Baloo Bhaijaan 2", sans-serif; font-size: 22px; color: var(--green-deep); }
+      .try-again { margin-top: 22px; text-align: center; font-size: 18px; font-weight: 700; color: var(--coral-deep); background: #fff0f3; border: 2px dashed var(--coral); border-radius: 18px; padding: 22px; animation: pop 0.4s ease; }
+      .practice-hint { margin-top: 18px; text-align: center; font-size: 15px; font-weight: 700; color: var(--muted); background: var(--soft); border: 2px dashed var(--line); border-radius: 14px; padding: 14px; }
+
+      @keyframes pop { from { transform: scale(0.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+      @keyframes rise { from { transform: translateY(8px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+      .confetti { position: fixed; top: -12px; width: 10px; height: 14px; z-index: 50; pointer-events: none; border-radius: 2px; animation: fall linear forwards; }
+      @keyframes fall { to { transform: translateY(105vh) rotate(720deg); opacity: 0.9; } }
+      footer { text-align: center; color: var(--muted); font-size: 13px; margin-top: 24px; }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <header>
+        <div class="badge">رياضيات • جميع المراحل</div>
+        <h1>🎯 بطولة جدول الضرب</h1>
+        <p>الجدول الكامل من ١×١ إلى ١٠×١٠ — اختر إعداداتك وابدأ! 🚀</p>
+      </header>
+
+      <div class="body-pad">
+        <div class="top-row">
+          <div class="name-field">
+            <label for="studentName">👦 اسم الطالب</label>
+            <input id="studentName" placeholder="اكتب اسمك هنا" autocomplete="off" />
+          </div>
+          <div class="progress-wrap">
+            <div class="progress-top">
+              <span>التقدّم</span>
+              <span id="progressText">٠ / ٠</span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+          </div>
+        </div>
+
+        <!-- لوحة الإعدادات -->
+        <div class="settings">
+          <div class="setting">
+            <span class="setting-label">🧩 ترتيب الأسئلة</span>
+            <div class="segmented">
+              <button id="modeOrdered" class="seg" onclick="setMode('ordered')">📋 بالترتيب</button>
+              <button id="modeRandom" class="seg active" onclick="setMode('random')">🎲 عشوائي</button>
+            </div>
+          </div>
+
+          <div class="setting">
+            <span class="setting-label">🎓 طريقة التصحيح</span>
+            <div class="segmented">
+              <button id="fbPractice" class="seg active" onclick="setFeedback('practice')">⚡ تدريب (فوري)</button>
+              <button id="fbExam" class="seg" onclick="setFeedback('exam')">📝 اختبار (عند الإنهاء)</button>
+            </div>
+          </div>
+
+          <p class="hint" id="fbHint"></p>
+
+          <p class="note">✍️ تذكير: الكتابة على الحاسب والجوال والآيباد تبدأ من <strong>اليسار</strong> — اكتب <strong>العشرات أولاً ثم الآحاد</strong> (مثال: لكتابة ثمانية وعشرين اكتب ٢ ثم ٨ ← ٢٨).</p>
+        </div>
+
+        <div id="questions"></div>
+
+        <div class="actions">
+          <button class="btn-primary" onclick="checkAnswers()">✅ إنهاء وعرض النتيجة</button>
+          <button class="btn-ghost" onclick="resetQuiz()">🔄 إعادة المحاولة</button>
+        </div>
+
+        <div id="result"></div>
+        <div id="certificate"></div>
+
+        <footer>صُمّم لتعليم جدول الضرب · بالتوفيق! 🌟</footer>
+      </div>
+    </div>
+
+    <script>
+      // ===== الجدول الكامل: من ١×١ حتى ١٠×١٠ =====
+      function buildFullTable() {
+        const list = [];
+        for (let a = 1; a <= 10; a++)
+          for (let b = 1; b <= 10; b++) list.push([a, b]);
+        return list;
+      }
+      const baseQuestions = buildFullTable();
+
+      let currentMode = "random";       // ترتيب الأسئلة: random | ordered
+      let feedbackMode = "practice";    // التصحيح: practice (فوري) | exam (عند الإنهاء)
+      let activeQuestions = [];
+
+      const arabicDigits = "٠١٢٣٤٥٦٧٨٩";
+      const $ = (id) => document.getElementById(id);
+
+      function toArabicNum(num) { return String(num).replace(/\d/g, (d) => arabicDigits[d]); }
+
+      function normalizeNumber(input) {
+        if (input == null) return "";
+        let s = String(input).replace(/[٠-٩]/g, (d) => arabicDigits.indexOf(d));
+        return s.replace(/[^\d]/g, "");
+      }
+
+      // منطق رياضي صارم: مساواة عددية فقط (لا قبول لأي ترتيب معكوس)
+      function judge(userValue, correct) {
+        const val = normalizeNumber(userValue);
+        if (val === "") return "empty";
+        return Number(val) === Number(correct) ? "exact" : "wrong";
+      }
+
+      function shuffle(arr) {
+        const a = arr.slice();
+        for (let i = a.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+      }
+      function prepareQuestions() {
+        activeQuestions = currentMode === "random" ? shuffle(baseQuestions) : baseQuestions.slice();
+      }
+
+      // ===== بناء البطاقات =====
+      function buildQuestions() {
+        $("questions").innerHTML = activeQuestions
+          .map((q, i) => `
+            <div class="question" id="row${i}" style="animation-delay:${(i % 12) * 0.02}s">
+              <span class="q-index">${toArabicNum(i + 1)}</span>
+              <div class="q-expr">${toArabicNum(q[0])} <span class="times">×</span> ${toArabicNum(q[1])}</div>
+              <input id="q${i}" type="text" inputmode="numeric" dir="ltr" autocomplete="off"
+                     aria-label="ناتج ${q[0]} في ${q[1]}"
+                     oninput="onInput(${i})" onblur="onBlur(${i})" onfocus="onFocus(${i})" />
+              <span class="feedback" id="feedback${i}"></span>
+            </div>`)
+          .join("");
+      }
+
+      function clearMark(i) {
+        const row = $("row" + i);
+        if (!row) return;
+        row.classList.remove("correct", "wrong");
+        $("feedback" + i).innerText = "";
+      }
+
+      // تقييم خانة واحدة وإظهار التغذية الراجعة. تُعيد true إذا كانت صحيحة.
+      function evaluateField(i, markEmptyAsWrong) {
+        const correct = activeQuestions[i][0] * activeQuestions[i][1];
+        const res = judge($("q" + i).value, correct);
+        clearMark(i);
+        const row = $("row" + i), fb = $("feedback" + i);
+
+        if (res === "exact") { row.classList.add("correct"); fb.innerText = "✔ أحسنت"; return true; }
+        if (res === "wrong") { row.classList.add("wrong"); fb.innerText = "الصحيح: " + toArabicNum(correct); return false; }
+        // empty
+        if (markEmptyAsWrong) { row.classList.add("wrong"); fb.innerText = "الصحيح: " + toArabicNum(correct); }
+        return false;
+      }
+
+      // ===== أحداث الإدخال =====
+      function onInput(i) {
+        const el = $("q" + i);
+        // توحيد العرض على الأرقام الهندية (الشرق أوسطية) أثناء الكتابة
+        const display = normalizeNumber(el.value).replace(/\d/g, (d) => arabicDigits[d]);
+        if (el.value !== display) el.value = display;
+        if (feedbackMode === "practice") clearMark(i);
+        updateProgress();
+      }
+      function onFocus(i) { if (feedbackMode === "practice") clearMark(i); }
+      function onBlur(i) {
+        if (feedbackMode === "practice") { evaluateField(i, false); updateProgress(); }
+      }
+
+      // ===== شريط التقدم + الإحصائية الحية =====
+      function updateProgress() {
+        let answered = 0, correctCount = 0;
+        const total = activeQuestions.length;
+        activeQuestions.forEach((q, i) => {
+          const el = $("q" + i);
+          if (!el) return;
+          if (normalizeNumber(el.value) !== "") answered++;
+          const row = $("row" + i);
+          if (row && row.classList.contains("correct")) correctCount++;
+        });
+        $("progressFill").style.width = Math.round((answered / total) * 100) + "%";
+        $("progressText").innerText =
+          feedbackMode === "practice"
+            ? `أجبت ${toArabicNum(answered)} / ${toArabicNum(total)} · ✔ ${toArabicNum(correctCount)}`
+            : `${toArabicNum(answered)} / ${toArabicNum(total)}`;
+      }
+
+      // ===== التنقل بمفتاح Enter =====
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+          const inputs = Array.from(document.querySelectorAll(".question input"));
+          const i = inputs.indexOf(document.activeElement);
+          if (i > -1 && i < inputs.length - 1) inputs[i + 1].focus();
+          else if (i === inputs.length - 1) checkAnswers();
+        }
+      });
+
+      // ===== الإنهاء وعرض النتيجة =====
+      function checkAnswers() {
+        let score = 0;
+        activeQuestions.forEach((q, i) => { if (evaluateField(i, true)) score++; });
+        const percent = Math.round((score / activeQuestions.length) * 100);
+        renderScore(score, percent);
+
+        // الشهادة في وضع الاختبار فقط؛ وضع التدريب يعرض النتيجة بلا شهادة
+        if (feedbackMode === "exam") {
+          generateCertificate(percent);
+        } else {
+          $("certificate").innerHTML =
+            '<p class="practice-hint">🎓 الشهادة تُمنح في «وضع الاختبار» فقط — أنت الآن في وضع التدريب.</p>';
+        }
+
+        updateProgress();
+        $("result").scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+
+      function renderScore(score, percent) {
+        let msg;
+        if (percent === 100) msg = "إجابات كاملة! أداء أسطوري 👑";
+        else if (percent >= 90) msg = "ممتاز جداً! أنت بطل الضرب 🏆";
+        else if (percent >= 75) msg = "جيد جداً! اقتربت من الكمال 💪";
+        else if (percent >= 50) msg = "بداية طيبة، راجع البطاقات الحمراء 📚";
+        else msg = "لا بأس، التكرار يصنع البطل! حاول ثانيةً 🌱";
+        $("result").innerHTML = `
+          <div class="score-card">
+            <div class="score-ring" style="--p:${percent}"><b>${toArabicNum(percent)}%</b></div>
+            <div class="score-text">
+              <h3>نتيجتك</h3>
+              <p>الإجابات الصحيحة: <strong>${toArabicNum(score)}</strong> من ${toArabicNum(activeQuestions.length)}</p>
+              <p>${msg}</p>
+            </div>
+          </div>`;
+      }
+
+      function generateCertificate(percent) {
+        const certDiv = $("certificate");
+        const name = $("studentName").value.trim() || "الطالب المجتهد";
+        if (percent >= 90) {
+          const grade = percent === 100 ? "ممتاز جداً 🏆" : "ممتاز ⭐";
+          certDiv.innerHTML = `
+            <div class="certificate">
+              <div class="ribbon">🏅</div>
+              <h2>شهادة تقدير</h2>
+              <p>تُمنح هذه الشهادة بكل فخر إلى</p>
+              <div class="cname">${escapeHtml(name)}</div>
+              <p>لتحقيقه نسبة <strong>${toArabicNum(percent)}%</strong> في بطولة جدول الضرب</p>
+              <p class="grade">التقدير: ${grade}</p>
+            </div>`;
+          launchConfetti();
+        } else {
+          certDiv.innerHTML = `
+            <div class="try-again">
+              لم تبلغ ٩٠٪ بعد 💛<br />
+              راجع البطاقات الحمراء وحاول مرة أخرى — أنت قادر! 🚀
+            </div>`;
+        }
+      }
+
+      function escapeHtml(str) {
+        return str.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+      }
+      function clearResults() { $("result").innerHTML = ""; $("certificate").innerHTML = ""; }
+
+      // إعادة تقييم كل الخانات المُجابة (تُستخدم عند تغيير الإعدادات في وضع التدريب)
+      function reevaluateAnswered() {
+        activeQuestions.forEach((q, i) => {
+          const el = $("q" + i);
+          if (el && normalizeNumber(el.value) !== "") evaluateField(i, false);
+          else clearMark(i);
+        });
+      }
+
+      // ===== تبديل ترتيب الأسئلة =====
+      function setMode(mode) {
+        currentMode = mode;
+        $("modeRandom").classList.toggle("active", mode === "random");
+        $("modeOrdered").classList.toggle("active", mode === "ordered");
+        prepareQuestions();
+        buildQuestions();
+        clearResults();
+        updateProgress();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      // ===== تبديل طريقة التصحيح =====
+      function setFeedback(mode) {
+        feedbackMode = mode;
+        $("fbPractice").classList.toggle("active", mode === "practice");
+        $("fbExam").classList.toggle("active", mode === "exam");
+        clearResults();
+        if (mode === "practice") {
+          $("fbHint").innerText = "⚡ التدريب: يظهر التصحيح فور إنهاء كتابة كل إجابة، ويمكن للطالب تعديلها فوراً والإحصائية تتغيّر مباشرة. (الأفضل للتعلّم)";
+          reevaluateAnswered();
+        } else {
+          $("fbHint").innerText = "📝 الاختبار: يكتب الطالب كل الإجابات دون تصحيح، ويظهر التقييم عند الضغط على «إنهاء وعرض النتيجة». (الأفضل لقياس المستوى الحقيقي)";
+          for (let i = 0; i < activeQuestions.length; i++) clearMark(i);
+        }
+        updateProgress();
+      }
+
+      // ===== إعادة المحاولة =====
+      function resetQuiz() {
+        prepareQuestions();
+        buildQuestions();
+        clearResults();
+        updateProgress();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      // ===== قصاصات الاحتفال =====
+      function launchConfetti() {
+        const colors = ["#fbbf24", "#22c55e", "#0ea5a4", "#fb7185", "#f59e0b"];
+        for (let i = 0; i < 90; i++) {
+          const c = document.createElement("div");
+          c.className = "confetti";
+          c.style.left = Math.random() * 100 + "vw";
+          c.style.background = colors[Math.floor(Math.random() * colors.length)];
+          c.style.animationDuration = 2.4 + Math.random() * 2 + "s";
+          c.style.animationDelay = Math.random() * 0.6 + "s";
+          c.style.transform = `rotate(${Math.random() * 360}deg)`;
+          document.body.appendChild(c);
+          setTimeout(() => c.remove(), 5200);
+        }
+      }
+
+      // ===== التشغيل =====
+      prepareQuestions();
+      buildQuestions();
+      setFeedback("practice"); // الافتراضي: تدريب فوري + يضبط نص التلميح
+      updateProgress();
+    </script>
+  </body>
+</html>
