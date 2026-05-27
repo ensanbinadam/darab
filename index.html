@@ -491,10 +491,33 @@
       .btn-review:hover {
         background: #fffbeb;
       }
+      .btn-review:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+        filter: grayscale(0.4);
+      }
       .btn-review.on {
         background: var(--sun);
         color: #6b3f00;
         box-shadow: 0 4px 0 var(--sun-deep);
+      }
+      .actions button:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+        filter: grayscale(0.4);
+        transform: translateY(3px);
+        box-shadow: 0 2px 0 var(--teal-deep);
+      }
+      .question input[readonly] {
+        background: #eef2f4;
+        color: var(--muted);
+        cursor: not-allowed;
+      }
+      .lock-note {
+        color: var(--coral-deep) !important;
+        font-weight: 700;
+        font-size: 14px;
+        margin-top: 8px;
       }
 
       #result {
@@ -788,7 +811,7 @@
   <body>
     <div class="container">
       <header>
-        <div class="badge">رياضيات • مراجعة جداول الضرب لجميع المراحل</div>
+        <div class="badge">رياضيات • مناسب لمراحل التعليم العام</div>
         <h1>🎯 بطولة جدول الضرب</h1>
         <p>الجدول الكامل من ١×١ إلى ١٠×١٠ — اختر إعداداتك وابدأ! 🚀</p>
       </header>
@@ -938,6 +961,7 @@
       let currentMode = "random"; // ترتيب الأسئلة: random | ordered
       let feedbackMode = "practice"; // التصحيح: practice (فوري) | exam (عند الإنهاء)
       let reviewMode = false; // وضع المراجعة: إظهار النواتج للدراسة
+      let submitted = false; // قُفل الاختبار بعد الإنهاء حتى إعادة المحاولة
       let activeQuestions = [];
 
       const arabicDigits = "٠١٢٣٤٥٦٧٨٩";
@@ -1094,6 +1118,8 @@
 
       // ===== الإنهاء وعرض النتيجة =====
       function checkAnswers() {
+        if (submitted) return; // لا يُسمح بإعادة التحقق إلا بعد «إعادة المحاولة»
+
         let score = 0;
         activeQuestions.forEach((q, i) => {
           if (evaluateField(i, true)) score++;
@@ -1111,6 +1137,9 @@
 
         updateProgress();
 
+        // قفل الاختبار: تعطيل زر الإنهاء وإقفال خانات الإجابة حتى إعادة المحاولة
+        lockTest(true);
+
         // تجهيز الطباعة: الاسم والتاريخ، وإظهار الزر
         $("printName").innerText =
           $("studentName").value.trim() || "الطالب المجتهد";
@@ -1124,6 +1153,16 @@
         $("printWrap").style.display = "block";
 
         $("result").scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+
+      // قفل/فتح الاختبار
+      function lockTest(locked) {
+        submitted = locked;
+        $("finishBtn").disabled = locked;
+        $("reviewBtn").disabled = locked; // منع كشف النواتج عبر المراجعة بعد الإنهاء
+        document.querySelectorAll(".question input").forEach((el) => {
+          el.readOnly = locked;
+        });
       }
 
       function renderScore(score, percent) {
@@ -1140,6 +1179,7 @@
               <h3>نتيجتك</h3>
               <p>الإجابات الصحيحة: <strong>${toArabicNum(score)}</strong> من ${toArabicNum(activeQuestions.length)}</p>
               <p>${msg}</p>
+              <p class="lock-note">🔒 انتهت المحاولة — اضغط «🔄 إعادة المحاولة» للبدء من جديد.</p>
             </div>
           </div>`;
       }
@@ -1201,6 +1241,7 @@
       function toggleReview() {
         reviewMode = !reviewMode;
         buildQuestions();
+        lockTest(false);
         clearResults();
         const rb = $("reviewBtn");
         rb.classList.toggle("on", reviewMode);
@@ -1219,6 +1260,7 @@
         $("modeOrdered").classList.toggle("active", mode === "ordered");
         prepareQuestions();
         buildQuestions();
+        lockTest(false);
         clearResults();
         updateProgress();
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -1246,6 +1288,7 @@
       function resetQuiz() {
         prepareQuestions();
         buildQuestions();
+        lockTest(false);
         clearResults();
         updateProgress();
         window.scrollTo({ top: 0, behavior: "smooth" });
