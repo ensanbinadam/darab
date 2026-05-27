@@ -14,148 +14,781 @@
 
     <style>
       :root {
-        --teal: #0ea5a4; --teal-deep: #0f766e;
-        --sun: #fbbf24; --sun-deep: #f59e0b;
-        --coral: #fb7185; --coral-deep: #e11d48;
-        --green: #22c55e; --green-deep: #15803d;
-        --ink: #143642; --muted: #5b7480;
-        --card: #ffffff; --soft: #eef6f6; --line: #d8eceb;
+        --teal: #0ea5a4;
+        --teal-deep: #0f766e;
+        --sun: #fbbf24;
+        --sun-deep: #f59e0b;
+        --coral: #fb7185;
+        --coral-deep: #e11d48;
+        --green: #22c55e;
+        --green-deep: #15803d;
+        --ink: #143642;
+        --muted: #5b7480;
+        --card: #ffffff;
+        --soft: #eef6f6;
+        --line: #d8eceb;
         --shadow: 0 14px 40px rgba(15, 54, 66, 0.18);
       }
-      * { box-sizing: border-box; }
+      * {
+        box-sizing: border-box;
+      }
       body {
-        font-family: "Tajawal", system-ui, sans-serif; color: var(--ink); margin: 0; min-height: 100vh;
+        font-family: "Tajawal", system-ui, sans-serif;
+        color: var(--ink);
+        margin: 0;
+        min-height: 100vh;
         background:
-          radial-gradient(circle at 12% 18%, rgba(251, 191, 36, 0.22), transparent 38%),
-          radial-gradient(circle at 88% 12%, rgba(251, 113, 133, 0.20), transparent 40%),
-          radial-gradient(circle at 50% 95%, rgba(34, 197, 94, 0.18), transparent 45%),
+          radial-gradient(
+            circle at 12% 18%,
+            rgba(251, 191, 36, 0.22),
+            transparent 38%
+          ),
+          radial-gradient(
+            circle at 88% 12%,
+            rgba(251, 113, 133, 0.2),
+            transparent 40%
+          ),
+          radial-gradient(
+            circle at 50% 95%,
+            rgba(34, 197, 94, 0.18),
+            transparent 45%
+          ),
           linear-gradient(160deg, #0f766e, #134e4a 55%, #0b3a3a);
         background-attachment: fixed;
       }
       body::before {
-        content: ""; position: fixed; inset: 0;
-        background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1.5px, transparent 1.6px);
-        background-size: 26px 26px; pointer-events: none; z-index: 0;
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: radial-gradient(
+          rgba(255, 255, 255, 0.07) 1.5px,
+          transparent 1.6px
+        );
+        background-size: 26px 26px;
+        pointer-events: none;
+        z-index: 0;
       }
       .container {
-        position: relative; z-index: 1; max-width: 980px; margin: 26px auto;
-        background: var(--card); padding: 0 0 30px; border-radius: 26px;
-        box-shadow: var(--shadow); overflow: hidden;
+        position: relative;
+        z-index: 1;
+        max-width: 980px;
+        margin: 26px auto;
+        background: var(--card);
+        padding: 0 0 30px;
+        border-radius: 26px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
       }
       header {
         background: linear-gradient(120deg, var(--teal), var(--teal-deep));
-        color: #fff; padding: 30px 28px 26px; text-align: center; position: relative; overflow: hidden;
+        color: #fff;
+        padding: 30px 28px 26px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
       }
       header::after {
-        content: "✦ ✶ ✦ ✶ ✦ ✶ ✦ ✶ ✦ ✶ ✦ ✶"; position: absolute; bottom: 8px; left: 0; right: 0;
-        font-size: 12px; letter-spacing: 8px; color: rgba(255, 255, 255, 0.25); white-space: nowrap;
+        content: "✦ ✶ ✦ ✶ ✦ ✶ ✦ ✶ ✦ ✶ ✦ ✶";
+        position: absolute;
+        bottom: 8px;
+        left: 0;
+        right: 0;
+        font-size: 12px;
+        letter-spacing: 8px;
+        color: rgba(255, 255, 255, 0.25);
+        white-space: nowrap;
       }
       header h1 {
-        font-family: "Baloo Bhaijaan 2", sans-serif; font-weight: 800;
-        font-size: clamp(26px, 5vw, 40px); margin: 0; text-shadow: 0 3px 0 rgba(0, 0, 0, 0.12);
+        font-family: "Baloo Bhaijaan 2", sans-serif;
+        font-weight: 800;
+        font-size: clamp(26px, 5vw, 40px);
+        margin: 0;
+        text-shadow: 0 3px 0 rgba(0, 0, 0, 0.12);
       }
-      header p { margin: 8px 0 0; opacity: 0.92; font-size: 16px; }
+      header p {
+        margin: 8px 0 0;
+        opacity: 0.92;
+        font-size: 16px;
+      }
       .badge {
-        display: inline-block; background: var(--sun); color: #6b3f00;
-        font-family: "Baloo Bhaijaan 2", sans-serif; font-weight: 700; padding: 4px 14px;
-        border-radius: 999px; font-size: 14px; margin-bottom: 12px; box-shadow: 0 4px 0 var(--sun-deep);
+        display: inline-block;
+        background: var(--sun);
+        color: #6b3f00;
+        font-family: "Baloo Bhaijaan 2", sans-serif;
+        font-weight: 700;
+        padding: 4px 14px;
+        border-radius: 999px;
+        font-size: 14px;
+        margin-bottom: 12px;
+        box-shadow: 0 4px 0 var(--sun-deep);
       }
-      .body-pad { padding: 24px 28px 0; }
+      .body-pad {
+        padding: 24px 28px 0;
+      }
 
       .top-row {
-        display: flex; flex-wrap: wrap; gap: 16px; align-items: center;
-        justify-content: space-between; margin-bottom: 16px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
       }
-      .name-field { flex: 1 1 280px; }
-      .name-field label { display: block; font-weight: 700; font-size: 14px; color: var(--muted); margin-bottom: 6px; }
+      .name-field {
+        flex: 1 1 280px;
+      }
+      .name-field label {
+        display: block;
+        font-weight: 700;
+        font-size: 14px;
+        color: var(--muted);
+        margin-bottom: 6px;
+      }
       #studentName {
-        width: 100%; padding: 13px 16px; border-radius: 14px; border: 2px solid var(--line);
-        font-family: "Tajawal", sans-serif; font-size: 17px; color: var(--ink); transition: 0.2s; background: var(--soft);
+        width: 100%;
+        padding: 13px 16px;
+        border-radius: 14px;
+        border: 2px solid var(--line);
+        font-family: "Tajawal", sans-serif;
+        font-size: 17px;
+        color: var(--ink);
+        transition: 0.2s;
+        background: var(--soft);
       }
-      #studentName:focus { outline: none; border-color: var(--teal); background: #fff; box-shadow: 0 0 0 4px rgba(14, 165, 164, 0.15); }
+      #studentName:focus {
+        outline: none;
+        border-color: var(--teal);
+        background: #fff;
+        box-shadow: 0 0 0 4px rgba(14, 165, 164, 0.15);
+      }
 
-      .progress-wrap { flex: 1 1 240px; }
-      .progress-top { display: flex; justify-content: space-between; font-weight: 700; font-size: 14px; color: var(--muted); margin-bottom: 6px; }
-      .progress-bar { height: 14px; background: var(--soft); border-radius: 999px; overflow: hidden; border: 1px solid var(--line); }
-      .progress-fill { height: 100%; width: 0%; border-radius: 999px; background: linear-gradient(90deg, var(--sun), var(--green)); transition: width 0.35s ease; }
+      .progress-wrap {
+        flex: 1 1 240px;
+      }
+      .progress-top {
+        display: flex;
+        justify-content: space-between;
+        font-weight: 700;
+        font-size: 14px;
+        color: var(--muted);
+        margin-bottom: 6px;
+      }
+      .progress-bar {
+        height: 14px;
+        background: var(--soft);
+        border-radius: 999px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+      }
+      .progress-fill {
+        height: 100%;
+        width: 0%;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--sun), var(--green));
+        transition: width 0.35s ease;
+      }
 
       /* لوحة الإعدادات */
-      .settings { display: flex; flex-direction: column; gap: 12px; background: var(--soft); border: 2px solid var(--line); border-radius: 16px; padding: 14px 16px; margin-bottom: 20px; }
-      .setting { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-      .setting-label { font-weight: 700; color: var(--muted); font-size: 15px; }
-      .segmented { display: inline-flex; background: #fff; border: 2px solid var(--line); border-radius: 999px; padding: 4px; gap: 4px; margin-inline-start: auto; }
+      .settings {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        background: var(--soft);
+        border: 2px solid var(--line);
+        border-radius: 16px;
+        padding: 14px 16px;
+        margin-bottom: 20px;
+      }
+      .setting {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .setting-label {
+        font-weight: 700;
+        color: var(--muted);
+        font-size: 15px;
+      }
+
+      /* الخلايا الثلاث المتجاورة */
+      .settings-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+        gap: 12px;
+      }
+      .cell {
+        background: #fff;
+        border: 2px solid var(--line);
+        border-radius: 14px;
+        padding: 12px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        justify-content: space-between;
+      }
+      .cell-title {
+        font-weight: 700;
+        color: var(--teal-deep);
+        font-size: 15px;
+      }
+      .cell .segmented {
+        display: flex;
+        width: 100%;
+        margin: 0;
+      }
+      .cell .segmented .seg {
+        flex: 1;
+        padding: 9px 6px;
+        font-size: 14px;
+      }
+      .cell .btn-review {
+        width: 100%;
+        padding: 10px 8px;
+        font-size: 15px;
+        border-radius: 999px;
+      }
+
+      .segmented {
+        display: inline-flex;
+        background: #fff;
+        border: 2px solid var(--line);
+        border-radius: 999px;
+        padding: 4px;
+        gap: 4px;
+        margin-inline-start: auto;
+      }
       .seg {
-        font-family: "Baloo Bhaijaan 2", sans-serif; font-weight: 700; font-size: 14px; padding: 8px 16px;
-        border: none; border-radius: 999px; background: transparent; color: var(--teal-deep); cursor: pointer; transition: 0.18s;
+        font-family: "Baloo Bhaijaan 2", sans-serif;
+        font-weight: 700;
+        font-size: 14px;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 999px;
+        background: transparent;
+        color: var(--teal-deep);
+        cursor: pointer;
+        transition: 0.18s;
       }
-      .seg:hover { background: var(--soft); }
-      .seg.active { background: var(--teal); color: #fff; box-shadow: 0 3px 0 var(--teal-deep); }
-      .toggle { display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: 700; color: var(--ink); font-size: 14px; padding-top: 4px; border-top: 1px dashed var(--line); }
-      .toggle input { width: 20px; height: 20px; accent-color: var(--teal); cursor: pointer; }
-      .note { font-size: 14px; color: #92500a; background: #fffbeb; border: 2px dashed var(--sun-deep); border-radius: 12px; padding: 10px 14px; margin: 2px 0 0; line-height: 1.7; }
-      .note strong { color: #b45309; }
-      .hint { font-size: 13px; color: var(--muted); margin: 0; line-height: 1.6; }
+      .seg:hover {
+        background: var(--soft);
+      }
+      .seg.active {
+        background: var(--teal);
+        color: #fff;
+        box-shadow: 0 3px 0 var(--teal-deep);
+      }
+      .toggle {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        font-weight: 700;
+        color: var(--ink);
+        font-size: 14px;
+        padding-top: 4px;
+        border-top: 1px dashed var(--line);
+      }
+      .toggle input {
+        width: 20px;
+        height: 20px;
+        accent-color: var(--teal);
+        cursor: pointer;
+      }
+      .note {
+        font-size: 14px;
+        color: #92500a;
+        background: #fffbeb;
+        border: 2px dashed var(--sun-deep);
+        border-radius: 12px;
+        padding: 10px 14px;
+        margin: 2px 0 0;
+        line-height: 1.7;
+      }
+      .note strong {
+        color: #b45309;
+      }
+      .hint {
+        font-size: 13px;
+        color: var(--muted);
+        margin: 0;
+        line-height: 1.6;
+      }
 
-      #questions { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
+      #questions {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 14px;
+      }
       .question {
-        background: var(--soft); padding: 14px 12px; border-radius: 16px; border: 2px solid transparent;
-        text-align: center; transition: transform 0.15s, box-shadow 0.15s, background 0.2s, border-color 0.2s;
-        position: relative; animation: rise 0.3s ease both;
+        background: var(--soft);
+        padding: 14px 12px;
+        border-radius: 16px;
+        border: 2px solid transparent;
+        text-align: center;
+        transition:
+          transform 0.15s,
+          box-shadow 0.15s,
+          background 0.2s,
+          border-color 0.2s;
+        position: relative;
+        animation: rise 0.3s ease both;
       }
-      .question:hover { transform: translateY(-3px); box-shadow: 0 8px 18px rgba(15, 54, 66, 0.12); }
-      .q-index { position: absolute; top: 8px; inset-inline-start: 10px; font-size: 12px; font-weight: 700; color: var(--muted); background: #fff; border-radius: 999px; width: 22px; height: 22px; line-height: 22px; }
-      .q-expr { font-family: "Baloo Bhaijaan 2", sans-serif; font-weight: 700; font-size: 24px; color: var(--teal-deep); margin: 6px 0 10px; letter-spacing: 1px; }
-      .q-expr .times { color: var(--sun-deep); }
+      .question:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 18px rgba(15, 54, 66, 0.12);
+      }
+      .q-index {
+        position: absolute;
+        top: 8px;
+        inset-inline-start: 10px;
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--muted);
+        background: #fff;
+        border-radius: 999px;
+        width: 22px;
+        height: 22px;
+        line-height: 22px;
+      }
+      .q-expr {
+        font-family: "Baloo Bhaijaan 2", sans-serif;
+        font-weight: 700;
+        font-size: 24px;
+        color: var(--teal-deep);
+        margin: 6px 0 10px;
+        letter-spacing: 1px;
+      }
+      .q-expr .times {
+        color: var(--sun-deep);
+      }
       .question input {
-        width: 78px; padding: 9px 6px; font-family: "Baloo Bhaijaan 2", sans-serif; font-size: 20px;
-        text-align: center; border-radius: 12px; border: 2px solid var(--line); background: #fff; color: var(--ink); transition: 0.18s;
+        width: 78px;
+        padding: 9px 6px;
+        font-family: "Baloo Bhaijaan 2", sans-serif;
+        font-size: 20px;
+        text-align: center;
+        border-radius: 12px;
+        border: 2px solid var(--line);
+        background: #fff;
+        color: var(--ink);
+        transition: 0.18s;
       }
-      .question input:focus { outline: none; border-color: var(--teal); box-shadow: 0 0 0 4px rgba(14, 165, 164, 0.15); }
-      .question.correct { background: #e8fff0; border-color: var(--green); }
-      .question.correct input { border-color: var(--green); color: var(--green-deep); }
-      .question.wrong { background: #fff0f3; border-color: var(--coral); }
-      .question.wrong input { border-color: var(--coral); color: var(--coral-deep); }
-      .feedback { display: block; margin-top: 8px; font-size: 13px; font-weight: 700; min-height: 16px; }
-      .question.correct .feedback { color: var(--green-deep); }
-      .question.wrong .feedback { color: var(--coral-deep); }
+      .question input:focus {
+        outline: none;
+        border-color: var(--teal);
+        box-shadow: 0 0 0 4px rgba(14, 165, 164, 0.15);
+      }
+      .question.correct {
+        background: #e8fff0;
+        border-color: var(--green);
+      }
+      .question.correct input {
+        border-color: var(--green);
+        color: var(--green-deep);
+      }
+      .question.wrong {
+        background: #fff0f3;
+        border-color: var(--coral);
+      }
+      .question.wrong input {
+        border-color: var(--coral);
+        color: var(--coral-deep);
+      }
+      .feedback {
+        display: block;
+        margin-top: 8px;
+        font-size: 13px;
+        font-weight: 700;
+        min-height: 16px;
+      }
+      .question.correct .feedback {
+        color: var(--green-deep);
+      }
+      .question.wrong .feedback {
+        color: var(--coral-deep);
+      }
 
-      .actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 26px; }
-      .actions button { font-family: "Baloo Bhaijaan 2", sans-serif; font-weight: 700; font-size: 17px; padding: 13px 26px; border: none; border-radius: 14px; cursor: pointer; transition: transform 0.12s, filter 0.2s; }
-      .actions button:active { transform: translateY(2px); }
-      .btn-primary { background: var(--teal); color: #fff; box-shadow: 0 5px 0 var(--teal-deep); }
-      .btn-primary:hover { filter: brightness(1.05); }
-      .btn-ghost { background: #fff; color: var(--teal-deep); border: 2px solid var(--line); }
-      .btn-ghost:hover { background: var(--soft); }
+      /* وضع المراجعة (إظهار النواتج) */
+      .question.review {
+        background: #ecfeff;
+        border-color: var(--teal);
+      }
+      .question.review .q-expr {
+        margin: 6px 0;
+        font-size: 22px;
+      }
+      .q-expr .eq {
+        color: var(--muted);
+      }
+      .q-expr .ans {
+        display: inline-block;
+        background: #e8fff0;
+        color: var(--green-deep);
+        padding: 1px 10px;
+        border-radius: 8px;
+        margin-inline-start: 4px;
+      }
+      .review-hint {
+        display: none;
+        font-size: 14px;
+        color: var(--teal-deep);
+        background: #ecfeff;
+        border: 2px dashed var(--teal);
+        border-radius: 12px;
+        padding: 10px 14px;
+        margin: 0 0 16px;
+        line-height: 1.7;
+        font-weight: 700;
+      }
 
-      #result { margin-top: 26px; }
-      .score-card { display: flex; flex-wrap: wrap; align-items: center; gap: 22px; justify-content: center; background: var(--soft); border-radius: 20px; padding: 22px; border: 2px solid var(--line); animation: pop 0.4s ease; }
-      .score-ring { --p: 0; width: 120px; height: 120px; border-radius: 50%; display: grid; place-items: center; background: radial-gradient(closest-side, #fff 72%, transparent 73%), conic-gradient(var(--green) calc(var(--p) * 1%), var(--line) 0); flex: 0 0 auto; }
-      .score-ring b { font-family: "Baloo Bhaijaan 2", sans-serif; font-size: 30px; color: var(--teal-deep); }
-      .score-text { flex: 1 1 220px; min-width: 200px; }
-      .score-text h3 { font-family: "Baloo Bhaijaan 2", sans-serif; margin: 0 0 6px; font-size: 22px; }
-      .score-text p { margin: 4px 0; color: var(--muted); font-size: 16px; }
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+        margin-top: 26px;
+      }
+      .actions button {
+        font-family: "Baloo Bhaijaan 2", sans-serif;
+        font-weight: 700;
+        font-size: 17px;
+        padding: 13px 26px;
+        border: none;
+        border-radius: 14px;
+        cursor: pointer;
+        transition:
+          transform 0.12s,
+          filter 0.2s;
+      }
+      .actions button:active {
+        transform: translateY(2px);
+      }
+      .btn-primary {
+        background: var(--teal);
+        color: #fff;
+        box-shadow: 0 5px 0 var(--teal-deep);
+      }
+      .btn-primary:hover {
+        filter: brightness(1.05);
+      }
+      .btn-ghost {
+        background: #fff;
+        color: var(--teal-deep);
+        border: 2px solid var(--teal);
+        box-shadow: 0 5px 0 var(--teal-deep);
+      }
+      .btn-ghost:hover {
+        background: var(--soft);
+        filter: brightness(1.02);
+      }
+      .btn-review {
+        background: #fff;
+        color: var(--sun-deep);
+        border: 2px solid var(--sun);
+      }
+      .btn-review:hover {
+        background: #fffbeb;
+      }
+      .btn-review.on {
+        background: var(--sun);
+        color: #6b3f00;
+        box-shadow: 0 4px 0 var(--sun-deep);
+      }
 
-      .certificate { margin-top: 26px; background: radial-gradient(circle at 20% 0%, rgba(255,255,255,0.6), transparent 40%), linear-gradient(135deg, #fffdf3, #fff3c4); border: 5px double var(--sun-deep); border-radius: 20px; padding: 30px 26px; text-align: center; animation: pop 0.5s ease; }
-      .certificate .ribbon { font-size: 46px; }
-      .certificate h2 { font-family: "Baloo Bhaijaan 2", sans-serif; color: #b45309; margin: 6px 0; font-size: 28px; }
-      .certificate .cname { font-family: "Baloo Bhaijaan 2", sans-serif; font-size: 26px; color: var(--teal-deep); margin: 10px 0; padding-bottom: 6px; border-bottom: 3px dashed var(--sun-deep); display: inline-block; }
-      .certificate p { margin: 6px 0; color: #7c5a13; font-size: 17px; }
-      .certificate .grade { font-family: "Baloo Bhaijaan 2", sans-serif; font-size: 22px; color: var(--green-deep); }
-      .try-again { margin-top: 22px; text-align: center; font-size: 18px; font-weight: 700; color: var(--coral-deep); background: #fff0f3; border: 2px dashed var(--coral); border-radius: 18px; padding: 22px; animation: pop 0.4s ease; }
-      .practice-hint { margin-top: 18px; text-align: center; font-size: 15px; font-weight: 700; color: var(--muted); background: var(--soft); border: 2px dashed var(--line); border-radius: 14px; padding: 14px; }
+      #result {
+        margin-top: 26px;
+      }
+      .score-card {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 22px;
+        justify-content: center;
+        background: var(--soft);
+        border-radius: 20px;
+        padding: 22px;
+        border: 2px solid var(--line);
+        animation: pop 0.4s ease;
+      }
+      .score-ring {
+        --p: 0;
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        background:
+          radial-gradient(closest-side, #fff 72%, transparent 73%),
+          conic-gradient(var(--green) calc(var(--p) * 1%), var(--line) 0);
+        flex: 0 0 auto;
+      }
+      .score-ring b {
+        font-family: "Baloo Bhaijaan 2", sans-serif;
+        font-size: 30px;
+        color: var(--teal-deep);
+      }
+      .score-text {
+        flex: 1 1 220px;
+        min-width: 200px;
+      }
+      .score-text h3 {
+        font-family: "Baloo Bhaijaan 2", sans-serif;
+        margin: 0 0 6px;
+        font-size: 22px;
+      }
+      .score-text p {
+        margin: 4px 0;
+        color: var(--muted);
+        font-size: 16px;
+      }
 
-      @keyframes pop { from { transform: scale(0.92); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-      @keyframes rise { from { transform: translateY(8px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-      .confetti { position: fixed; top: -12px; width: 10px; height: 14px; z-index: 50; pointer-events: none; border-radius: 2px; animation: fall linear forwards; }
-      @keyframes fall { to { transform: translateY(105vh) rotate(720deg); opacity: 0.9; } }
-      footer { text-align: center; color: var(--muted); font-size: 13px; margin-top: 24px; }
+      .certificate {
+        margin-top: 26px;
+        background:
+          radial-gradient(
+            circle at 20% 0%,
+            rgba(255, 255, 255, 0.6),
+            transparent 40%
+          ),
+          linear-gradient(135deg, #fffdf3, #fff3c4);
+        border: 5px double var(--sun-deep);
+        border-radius: 20px;
+        padding: 30px 26px;
+        text-align: center;
+        animation: pop 0.5s ease;
+      }
+      .certificate .ribbon {
+        font-size: 46px;
+      }
+      .certificate h2 {
+        font-family: "Baloo Bhaijaan 2", sans-serif;
+        color: #b45309;
+        margin: 6px 0;
+        font-size: 28px;
+      }
+      .certificate .cname {
+        font-family: "Baloo Bhaijaan 2", sans-serif;
+        font-size: 26px;
+        color: var(--teal-deep);
+        margin: 10px 0;
+        padding-bottom: 6px;
+        border-bottom: 3px dashed var(--sun-deep);
+        display: inline-block;
+      }
+      .certificate p {
+        margin: 6px 0;
+        color: #7c5a13;
+        font-size: 17px;
+      }
+      .certificate .grade {
+        font-family: "Baloo Bhaijaan 2", sans-serif;
+        font-size: 22px;
+        color: var(--green-deep);
+      }
+      .try-again {
+        margin-top: 22px;
+        text-align: center;
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--coral-deep);
+        background: #fff0f3;
+        border: 2px dashed var(--coral);
+        border-radius: 18px;
+        padding: 22px;
+        animation: pop 0.4s ease;
+      }
+      .practice-hint {
+        margin-top: 18px;
+        text-align: center;
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--muted);
+        background: var(--soft);
+        border: 2px dashed var(--line);
+        border-radius: 14px;
+        padding: 14px;
+      }
+
+      @keyframes pop {
+        from {
+          transform: scale(0.92);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      @keyframes rise {
+        from {
+          transform: translateY(8px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+      .confetti {
+        position: fixed;
+        top: -12px;
+        width: 10px;
+        height: 14px;
+        z-index: 50;
+        pointer-events: none;
+        border-radius: 2px;
+        animation: fall linear forwards;
+      }
+      @keyframes fall {
+        to {
+          transform: translateY(105vh) rotate(720deg);
+          opacity: 0.9;
+        }
+      }
+      footer {
+        text-align: center;
+        color: var(--muted);
+        font-size: 13px;
+        margin-top: 26px;
+        padding-top: 18px;
+        border-top: 2px dashed var(--line);
+        line-height: 1.9;
+      }
+      footer p {
+        margin: 2px 0;
+      }
+      footer strong {
+        color: var(--teal-deep);
+        font-family: "Baloo Bhaijaan 2", sans-serif;
+      }
+      footer a {
+        color: var(--teal);
+        font-weight: 700;
+        text-decoration: none;
+        border-bottom: 2px solid var(--sun);
+        padding-bottom: 1px;
+        transition: 0.2s;
+      }
+      footer a:hover {
+        color: var(--teal-deep);
+        border-bottom-color: var(--teal);
+      }
+
+      /* عناصر الطباعة */
+      #printWrap {
+        text-align: center;
+        margin-top: 20px;
+        display: none;
+      }
+      .btn-print {
+        font-family: "Baloo Bhaijaan 2", sans-serif;
+        font-weight: 700;
+        font-size: 17px;
+        padding: 13px 26px;
+        border: none;
+        border-radius: 14px;
+        cursor: pointer;
+        background: var(--sun);
+        color: #6b3f00;
+        box-shadow: 0 5px 0 var(--sun-deep);
+        transition:
+          transform 0.12s,
+          filter 0.2s;
+      }
+      .btn-print:hover {
+        filter: brightness(1.04);
+      }
+      .btn-print:active {
+        transform: translateY(2px);
+      }
+
+      #printHeader,
+      #printThanks {
+        display: none;
+      }
+      .ph-badge {
+        display: inline-block;
+        background: var(--sun);
+        color: #6b3f00;
+        font-family: "Baloo Bhaijaan 2", sans-serif;
+        font-weight: 700;
+        padding: 4px 14px;
+        border-radius: 999px;
+        font-size: 14px;
+      }
+      .ph-title {
+        font-family: "Baloo Bhaijaan 2", sans-serif;
+        color: var(--teal-deep);
+        margin: 10px 0 4px;
+        font-size: 26px;
+      }
+      .ph-meta {
+        color: var(--muted);
+        margin: 0;
+        font-size: 15px;
+      }
+
+      @media print {
+        @page {
+          margin: 14mm;
+        }
+        * {
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+          color-adjust: exact !important;
+        }
+        body {
+          background: #fff !important;
+        }
+        body::before,
+        .confetti {
+          display: none !important;
+        }
+        .container {
+          box-shadow: none;
+          margin: 0;
+          max-width: 100%;
+          border-radius: 0;
+          padding: 0;
+        }
+        header,
+        .top-row,
+        .settings,
+        #questions,
+        .actions,
+        #printWrap,
+        .practice-hint {
+          display: none !important;
+        }
+        .body-pad {
+          padding: 0;
+        }
+        #result {
+          margin-top: 0;
+        }
+        #printHeader {
+          display: block !important;
+          text-align: center;
+          margin-bottom: 16px;
+        }
+        #printThanks {
+          display: block !important;
+          text-align: center;
+          margin-top: 22px;
+          font-family: "Baloo Bhaijaan 2", sans-serif;
+          font-size: 22px;
+          color: var(--teal-deep);
+        }
+      }
     </style>
   </head>
 
   <body>
     <div class="container">
       <header>
-        <div class="badge">رياضيات • جميع المراحل</div>
+        <div class="badge">رياضيات • مراجعة جداول الضرب لجميع المراحل</div>
         <h1>🎯 بطولة جدول الضرب</h1>
         <p>الجدول الكامل من ١×١ إلى ١٠×١٠ — اختر إعداداتك وابدأ! 🚀</p>
       </header>
@@ -164,51 +797,131 @@
         <div class="top-row">
           <div class="name-field">
             <label for="studentName">👦 اسم الطالب</label>
-            <input id="studentName" placeholder="اكتب اسمك هنا" autocomplete="off" />
+            <input
+              id="studentName"
+              placeholder="اكتب اسمك هنا"
+              autocomplete="off"
+            />
           </div>
           <div class="progress-wrap">
             <div class="progress-top">
               <span>التقدّم</span>
               <span id="progressText">٠ / ٠</span>
             </div>
-            <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
           </div>
         </div>
 
-        <!-- لوحة الإعدادات -->
+        <!-- لوحة الإعدادات: ثلاث خلايا متجاورة -->
         <div class="settings">
-          <div class="setting">
-            <span class="setting-label">🧩 ترتيب الأسئلة</span>
-            <div class="segmented">
-              <button id="modeOrdered" class="seg" onclick="setMode('ordered')">📋 بالترتيب</button>
-              <button id="modeRandom" class="seg active" onclick="setMode('random')">🎲 عشوائي</button>
+          <div class="settings-grid">
+            <!-- يمين: ترتيب الأسئلة -->
+            <div class="cell">
+              <span class="cell-title">🧩 ترتيب الأسئلة</span>
+              <div class="segmented">
+                <button
+                  id="modeOrdered"
+                  class="seg"
+                  onclick="setMode('ordered')"
+                >
+                  📋 بالترتيب
+                </button>
+                <button
+                  id="modeRandom"
+                  class="seg active"
+                  onclick="setMode('random')"
+                >
+                  🎲 عشوائي
+                </button>
+              </div>
             </div>
-          </div>
 
-          <div class="setting">
-            <span class="setting-label">🎓 طريقة التصحيح</span>
-            <div class="segmented">
-              <button id="fbPractice" class="seg active" onclick="setFeedback('practice')">⚡ تدريب (فوري)</button>
-              <button id="fbExam" class="seg" onclick="setFeedback('exam')">📝 اختبار (عند الإنهاء)</button>
+            <!-- الوسط: طريقة التصحيح -->
+            <div class="cell">
+              <span class="cell-title">🎓 طريقة التصحيح</span>
+              <div class="segmented">
+                <button
+                  id="fbPractice"
+                  class="seg active"
+                  onclick="setFeedback('practice')"
+                >
+                  ⚡ تدريب
+                </button>
+                <button id="fbExam" class="seg" onclick="setFeedback('exam')">
+                  📝 اختبار
+                </button>
+              </div>
+            </div>
+
+            <!-- اليسار: مراجعة الجدول -->
+            <div class="cell">
+              <span class="cell-title">👀 مراجعة الجدول</span>
+              <button
+                id="reviewBtn"
+                class="btn-review"
+                onclick="toggleReview()"
+              >
+                إظهار النواتج
+              </button>
             </div>
           </div>
 
           <p class="hint" id="fbHint"></p>
 
-          <p class="note">✍️ تذكير: الكتابة على الحاسب والجوال والآيباد تبدأ من <strong>اليسار</strong> — اكتب <strong>العشرات أولاً ثم الآحاد</strong> (مثال: لكتابة ثمانية وعشرين اكتب ٢ ثم ٨ ← ٢٨).</p>
+          <p class="note">
+            ✍️ تذكير: الكتابة على الحاسب والجوال والآيباد تبدأ من
+            <strong>اليسار</strong> — اكتب
+            <strong>العشرات أولاً ثم الآحاد</strong> (مثال: لكتابة ثمانية وعشرين
+            اكتب ٢ ثم ٨ ← ٢٨).
+          </p>
         </div>
+
+        <p class="review-hint" id="reviewHint">
+          📖 وضع المراجعة: ادرس النواتج جيداً، ثم اضغط «✏️ إخفاء النواتج وبدء
+          الحل» للانتقال إلى الاختبار.
+        </p>
 
         <div id="questions"></div>
 
         <div class="actions">
-          <button class="btn-primary" onclick="checkAnswers()">✅ إنهاء وعرض النتيجة</button>
-          <button class="btn-ghost" onclick="resetQuiz()">🔄 إعادة المحاولة</button>
+          <button id="finishBtn" class="btn-primary" onclick="checkAnswers()">
+            ✅ إنهاء وعرض النتيجة
+          </button>
+          <button id="resetBtn" class="btn-ghost" onclick="resetQuiz()">
+            🔄 إعادة المحاولة
+          </button>
+        </div>
+
+        <div id="printHeader">
+          <div class="ph-badge">🎯 بطولة جدول الضرب</div>
+          <h2 class="ph-title">تقرير النتيجة</h2>
+          <p class="ph-meta">
+            الطالب: <strong id="printName">—</strong> &nbsp;·&nbsp; التاريخ:
+            <span id="printDate">—</span>
+          </p>
         </div>
 
         <div id="result"></div>
         <div id="certificate"></div>
+        <div id="printThanks">مع خالص الشكر والتقدير 🌹</div>
 
-        <footer>صُمّم لتعليم جدول الضرب · بالتوفيق! 🌟</footer>
+        <div id="printWrap">
+          <button class="btn-print" onclick="window.print()">
+            🖨️ طباعة النتيجة / حفظ PDF
+          </button>
+        </div>
+
+        <footer>
+          <p>تمت البرمجة والتطوير باستخدام <strong>Opus 4.7</strong></p>
+          <p>
+            لصالح
+            <a href="https://t.me/Interact2030" target="_blank" rel="noopener"
+              >📣 ملتقى التعليم التفاعلي</a
+            >
+          </p>
+        </footer>
       </div>
     </div>
 
@@ -222,14 +935,17 @@
       }
       const baseQuestions = buildFullTable();
 
-      let currentMode = "random";       // ترتيب الأسئلة: random | ordered
-      let feedbackMode = "practice";    // التصحيح: practice (فوري) | exam (عند الإنهاء)
+      let currentMode = "random"; // ترتيب الأسئلة: random | ordered
+      let feedbackMode = "practice"; // التصحيح: practice (فوري) | exam (عند الإنهاء)
+      let reviewMode = false; // وضع المراجعة: إظهار النواتج للدراسة
       let activeQuestions = [];
 
       const arabicDigits = "٠١٢٣٤٥٦٧٨٩";
       const $ = (id) => document.getElementById(id);
 
-      function toArabicNum(num) { return String(num).replace(/\d/g, (d) => arabicDigits[d]); }
+      function toArabicNum(num) {
+        return String(num).replace(/\d/g, (d) => arabicDigits[d]);
+      }
 
       function normalizeNumber(input) {
         if (input == null) return "";
@@ -253,13 +969,25 @@
         return a;
       }
       function prepareQuestions() {
-        activeQuestions = currentMode === "random" ? shuffle(baseQuestions) : baseQuestions.slice();
+        activeQuestions =
+          currentMode === "random"
+            ? shuffle(baseQuestions)
+            : baseQuestions.slice();
       }
 
       // ===== بناء البطاقات =====
       function buildQuestions() {
         $("questions").innerHTML = activeQuestions
-          .map((q, i) => `
+          .map((q, i) => {
+            if (reviewMode) {
+              // وضع المراجعة: إظهار الناتج بدل خانة الإدخال
+              return `
+            <div class="question review" style="animation-delay:${(i % 12) * 0.02}s">
+              <span class="q-index">${toArabicNum(i + 1)}</span>
+              <div class="q-expr">${toArabicNum(q[0])} <span class="times">×</span> ${toArabicNum(q[1])} <span class="eq">=</span> <span class="ans">${toArabicNum(q[0] * q[1])}</span></div>
+            </div>`;
+            }
+            return `
             <div class="question" id="row${i}" style="animation-delay:${(i % 12) * 0.02}s">
               <span class="q-index">${toArabicNum(i + 1)}</span>
               <div class="q-expr">${toArabicNum(q[0])} <span class="times">×</span> ${toArabicNum(q[1])}</div>
@@ -267,7 +995,8 @@
                      aria-label="ناتج ${q[0]} في ${q[1]}"
                      oninput="onInput(${i})" onblur="onBlur(${i})" onfocus="onFocus(${i})" />
               <span class="feedback" id="feedback${i}"></span>
-            </div>`)
+            </div>`;
+          })
           .join("");
       }
 
@@ -283,12 +1012,24 @@
         const correct = activeQuestions[i][0] * activeQuestions[i][1];
         const res = judge($("q" + i).value, correct);
         clearMark(i);
-        const row = $("row" + i), fb = $("feedback" + i);
+        const row = $("row" + i),
+          fb = $("feedback" + i);
 
-        if (res === "exact") { row.classList.add("correct"); fb.innerText = "✔ أحسنت"; return true; }
-        if (res === "wrong") { row.classList.add("wrong"); fb.innerText = "الصحيح: " + toArabicNum(correct); return false; }
+        if (res === "exact") {
+          row.classList.add("correct");
+          fb.innerText = "✔ أحسنت";
+          return true;
+        }
+        if (res === "wrong") {
+          row.classList.add("wrong");
+          fb.innerText = "الصحيح: " + toArabicNum(correct);
+          return false;
+        }
         // empty
-        if (markEmptyAsWrong) { row.classList.add("wrong"); fb.innerText = "الصحيح: " + toArabicNum(correct); }
+        if (markEmptyAsWrong) {
+          row.classList.add("wrong");
+          fb.innerText = "الصحيح: " + toArabicNum(correct);
+        }
         return false;
       }
 
@@ -296,19 +1037,33 @@
       function onInput(i) {
         const el = $("q" + i);
         // توحيد العرض على الأرقام الهندية (الشرق أوسطية) أثناء الكتابة
-        const display = normalizeNumber(el.value).replace(/\d/g, (d) => arabicDigits[d]);
+        const display = normalizeNumber(el.value).replace(
+          /\d/g,
+          (d) => arabicDigits[d],
+        );
         if (el.value !== display) el.value = display;
         if (feedbackMode === "practice") clearMark(i);
         updateProgress();
       }
-      function onFocus(i) { if (feedbackMode === "practice") clearMark(i); }
+      function onFocus(i) {
+        if (feedbackMode === "practice") clearMark(i);
+      }
       function onBlur(i) {
-        if (feedbackMode === "practice") { evaluateField(i, false); updateProgress(); }
+        if (feedbackMode === "practice") {
+          evaluateField(i, false);
+          updateProgress();
+        }
       }
 
       // ===== شريط التقدم + الإحصائية الحية =====
       function updateProgress() {
-        let answered = 0, correctCount = 0;
+        if (reviewMode) {
+          $("progressFill").style.width = "0%";
+          $("progressText").innerText = "وضع المراجعة 👀";
+          return;
+        }
+        let answered = 0,
+          correctCount = 0;
         const total = activeQuestions.length;
         activeQuestions.forEach((q, i) => {
           const el = $("q" + i);
@@ -317,7 +1072,8 @@
           const row = $("row" + i);
           if (row && row.classList.contains("correct")) correctCount++;
         });
-        $("progressFill").style.width = Math.round((answered / total) * 100) + "%";
+        $("progressFill").style.width =
+          Math.round((answered / total) * 100) + "%";
         $("progressText").innerText =
           feedbackMode === "practice"
             ? `أجبت ${toArabicNum(answered)} / ${toArabicNum(total)} · ✔ ${toArabicNum(correctCount)}`
@@ -327,7 +1083,9 @@
       // ===== التنقل بمفتاح Enter =====
       document.addEventListener("keydown", function (e) {
         if (e.key === "Enter") {
-          const inputs = Array.from(document.querySelectorAll(".question input"));
+          const inputs = Array.from(
+            document.querySelectorAll(".question input"),
+          );
           const i = inputs.indexOf(document.activeElement);
           if (i > -1 && i < inputs.length - 1) inputs[i + 1].focus();
           else if (i === inputs.length - 1) checkAnswers();
@@ -337,7 +1095,9 @@
       // ===== الإنهاء وعرض النتيجة =====
       function checkAnswers() {
         let score = 0;
-        activeQuestions.forEach((q, i) => { if (evaluateField(i, true)) score++; });
+        activeQuestions.forEach((q, i) => {
+          if (evaluateField(i, true)) score++;
+        });
         const percent = Math.round((score / activeQuestions.length) * 100);
         renderScore(score, percent);
 
@@ -350,6 +1110,19 @@
         }
 
         updateProgress();
+
+        // تجهيز الطباعة: الاسم والتاريخ، وإظهار الزر
+        $("printName").innerText =
+          $("studentName").value.trim() || "الطالب المجتهد";
+        const dt = new Date();
+        $("printDate").innerText =
+          toArabicNum(dt.getDate()) +
+          "/" +
+          toArabicNum(dt.getMonth() + 1) +
+          "/" +
+          toArabicNum(dt.getFullYear());
+        $("printWrap").style.display = "block";
+
         $("result").scrollIntoView({ behavior: "smooth", block: "center" });
       }
 
@@ -396,9 +1169,24 @@
       }
 
       function escapeHtml(str) {
-        return str.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+        return str.replace(
+          /[&<>"']/g,
+          (c) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[c],
+        );
       }
-      function clearResults() { $("result").innerHTML = ""; $("certificate").innerHTML = ""; }
+      function clearResults() {
+        $("result").innerHTML = "";
+        $("certificate").innerHTML = "";
+        const pw = $("printWrap");
+        if (pw) pw.style.display = "none";
+      }
 
       // إعادة تقييم كل الخانات المُجابة (تُستخدم عند تغيير الإعدادات في وضع التدريب)
       function reevaluateAnswered() {
@@ -407,6 +1195,21 @@
           if (el && normalizeNumber(el.value) !== "") evaluateField(i, false);
           else clearMark(i);
         });
+      }
+
+      // ===== تبديل وضع المراجعة (إظهار/إخفاء النواتج) =====
+      function toggleReview() {
+        reviewMode = !reviewMode;
+        buildQuestions();
+        clearResults();
+        const rb = $("reviewBtn");
+        rb.classList.toggle("on", reviewMode);
+        rb.innerText = reviewMode ? "✏️ إخفاء النواتج" : "إظهار النواتج";
+        $("finishBtn").style.display = reviewMode ? "none" : "";
+        $("resetBtn").style.display = reviewMode ? "none" : "";
+        $("reviewHint").style.display = reviewMode ? "block" : "none";
+        updateProgress();
+        window.scrollTo({ top: 0, behavior: "smooth" });
       }
 
       // ===== تبديل ترتيب الأسئلة =====
@@ -428,10 +1231,12 @@
         $("fbExam").classList.toggle("active", mode === "exam");
         clearResults();
         if (mode === "practice") {
-          $("fbHint").innerText = "⚡ التدريب: يظهر التصحيح فور إنهاء كتابة كل إجابة، ويمكن للطالب تعديلها فوراً والإحصائية تتغيّر مباشرة. (الأفضل للتعلّم)";
+          $("fbHint").innerText =
+            "⚡ التدريب: يظهر التصحيح فور إنهاء كتابة كل إجابة، ويمكن للطالب تعديلها فوراً والإحصائية تتغيّر مباشرة. (الأفضل للتعلّم)";
           reevaluateAnswered();
         } else {
-          $("fbHint").innerText = "📝 الاختبار: يكتب الطالب كل الإجابات دون تصحيح، ويظهر التقييم عند الضغط على «إنهاء وعرض النتيجة». (الأفضل لقياس المستوى الحقيقي)";
+          $("fbHint").innerText =
+            "📝 الاختبار: يكتب الطالب كل الإجابات دون تصحيح، ويظهر التقييم عند الضغط على «إنهاء وعرض النتيجة». (الأفضل لقياس المستوى الحقيقي)";
           for (let i = 0; i < activeQuestions.length; i++) clearMark(i);
         }
         updateProgress();
@@ -453,7 +1258,8 @@
           const c = document.createElement("div");
           c.className = "confetti";
           c.style.left = Math.random() * 100 + "vw";
-          c.style.background = colors[Math.floor(Math.random() * colors.length)];
+          c.style.background =
+            colors[Math.floor(Math.random() * colors.length)];
           c.style.animationDuration = 2.4 + Math.random() * 2 + "s";
           c.style.animationDelay = Math.random() * 0.6 + "s";
           c.style.transform = `rotate(${Math.random() * 360}deg)`;
